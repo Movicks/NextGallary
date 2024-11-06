@@ -1,10 +1,25 @@
 import { createContext, useState, ReactNode } from 'react';
 
+// Define the structure of each image item in the response
+interface ImageType {
+  id: string;
+  alt_description?: string;
+  description?: string;
+  urls: {
+    regular: string;
+    small: string;
+  };
+  user: {
+    id: string;
+    name: string;
+  };
+}
+
 // Define the structure of the context state
 interface ImageContextType {
   fetchData: (url: string) => void;
   setSearchedResults: (query: string) => void;
-  response: any[]; 
+  response: ImageType[]; 
   isLoading: boolean;
   error: string | null;
   searchedResults: string;
@@ -18,7 +33,7 @@ interface ImageProviderProps {
 }
 
 export function ImageProvider({ children }: ImageProviderProps) {
-  const [response, setResponse] = useState<any[]>([]); 
+  const [response, setResponse] = useState<ImageType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [searchedResults, setSearchedResults] = useState<string>("");
