@@ -18,11 +18,14 @@ interface ImageType {
   };
 }
 
+
 interface ImageContextType {
-  response: ImageType[];
+  response: ImageType[]; 
   isLoading: boolean;
   error: string | null;
+  fetchData: (url: string) => void;
   searchedResults: string;
+  setSearchedResults: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function Imagegallery() {
