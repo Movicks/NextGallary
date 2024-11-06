@@ -1,5 +1,5 @@
 "use client";
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import useAxios from './hooks/useAxios';
@@ -45,7 +45,7 @@ export default function RootLayout({
   const [searchedResults, setSearchedResults] = useState<string>("");
 
   const value = {
-    response: response as ImageType[], 
+    response: response as ImageType[], // Explicitly cast the response to ImageType[]
     isLoading,
     error,
     fetchData,
