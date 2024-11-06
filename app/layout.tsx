@@ -1,5 +1,4 @@
 "use client";
-// import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import useAxios from './hooks/useAxios';
@@ -37,7 +36,7 @@ export default function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  // Type the response explicitly as ImageType[]
+  // Fetch the image data from the useAxios hook
   const { response, isLoading, error, fetchData } = useAxios(
     `search/photos?page=1&query=office&client_id=${process.env.NEXT_PUBLIC_API_ACCESS_KEY}`
   );
@@ -45,7 +44,7 @@ export default function RootLayout({
   const [searchedResults, setSearchedResults] = useState<string>("");
 
   const value = {
-    response: response as ImageType[], // Explicitly cast the response to ImageType[]
+    response, // Use the response directly without casting
     isLoading,
     error,
     fetchData,
