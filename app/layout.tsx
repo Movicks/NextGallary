@@ -1,5 +1,5 @@
 "use client";
-// import localFont from "next/font/local";
+
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import useAxios from './hooks/useAxios';
@@ -30,6 +30,7 @@ interface ImageContextType {
   setSearchedResults: Dispatch<SetStateAction<string>>;
 }
 
+// Create the ImageContext but do not export it like part of Next.js layout API
 export const ImageContext = createContext<ImageContextType | null>(null);
 
 export default function RootLayout({
@@ -56,6 +57,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
+        {/* Provide the ImageContext to children components */}
         <ImageContext.Provider value={value}>
           <Navbar />
           <main>{children}</main>
