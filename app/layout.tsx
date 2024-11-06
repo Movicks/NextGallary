@@ -1,11 +1,23 @@
 "use client";
-
+import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import useAxios from './hooks/useAxios';
 import { createContext, ReactNode, useState, Dispatch, SetStateAction } from 'react';
 
-// Define ImageType once
+// Load custom local fonts
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+});
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+});
+
+// Define ImageType
 interface ImageType {
   id: string;
   alt_description?: string;
@@ -30,7 +42,6 @@ interface ImageContextType {
   setSearchedResults: Dispatch<SetStateAction<string>>;
 }
 
-// Create the ImageContext but do not export it like part of Next.js layout API
 export const ImageContext = createContext<ImageContextType | null>(null);
 
 export default function RootLayout({
@@ -38,7 +49,6 @@ export default function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  // Type the response explicitly as ImageType[]
   const { response, isLoading, error, fetchData } = useAxios(
     `search/photos?page=1&query=office&client_id=${process.env.NEXT_PUBLIC_API_ACCESS_KEY}`
   );
@@ -46,7 +56,7 @@ export default function RootLayout({
   const [searchedResults, setSearchedResults] = useState<string>("");
 
   const value = {
-    response: response as ImageType[],
+    response,
     isLoading,
     error,
     fetchData,
@@ -56,8 +66,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className="antialiased">
-        {/* Provide the ImageContext to children components */}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ImageContext.Provider value={value}>
           <Navbar />
           <main>{children}</main>
