@@ -4,7 +4,7 @@ import { createContext, useState, ReactNode } from 'react';
 interface ImageContextType {
   fetchData: (url: string) => void;
   setSearchedResults: (query: string) => void;
-  response: any[]; // You can change 'any[]' to a more specific type if needed
+  response: any[]; 
   isLoading: boolean;
   error: string | null;
   searchedResults: string;
@@ -18,19 +18,19 @@ interface ImageProviderProps {
 }
 
 export function ImageProvider({ children }: ImageProviderProps) {
-  const [response, setResponse] = useState<any[]>([]); // Typing response as an array of any type
+  const [response, setResponse] = useState<any[]>([]); 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [searchedResults, setSearchedResults] = useState<string>("");
 
-  const fetchData = async (url: string): Promise<void> => { // Explicitly specifying the return type as void
+  const fetchData = async (url: string): Promise<void> => {
     setIsLoading(true);
     try {
       const res = await fetch(url);
       const data = await res.json();
       setResponse(data.results);
     } catch (err) {
-      setError("Failed to fetch data");
+      setError(err instanceof Error ? err.message : "Failed to fetch data");
     } finally {
       setIsLoading(false);
     }

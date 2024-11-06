@@ -29,7 +29,7 @@ export default function Searchbar() {
   };
 
   return (
-    <form onSubmit={handleSearchSubmit} className="max-w-[30rem] h-[2.5rem] w-full border-2 border-gray-400 rounded-full overflow-hidden">
+    <form onSubmit={handleSearchSubmit} className="max-w-[30rem] h-[2rem] md:h-[2.5rem] w-full border-2 border-gray-400 rounded-full overflow-hidden">
       <input
         type="text"
         placeholder="Search for Image"

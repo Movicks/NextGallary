@@ -1,39 +1,44 @@
-"use client";
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-interface AxiosResponse {
-  results: any[];
+interface ImageType {
+    id: string;
+    alt_description?: string;
+    urls: {
+        regular: string;
+        small: string;
+    };
 }
 
-export default function useAxios(params: string) {
-  const [error, setError] = useState<string>('');
-  const [isLoading, setIsloading] = useState<boolean>(false);
-  const [response, setResponse] = useState<any[]>([]);
+interface UseAxiosReturnType {
+    response: ImageType[];
+    isLoading: boolean;
+    error: string | null;
+    fetchData: (url: string) => void;
+}
 
-  axios.defaults.baseURL = "https://api.unsplash.com";
+export default function useAxios(params: string): UseAxiosReturnType {
+    const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsloading] = useState<boolean>(false);
+    const [response, setResponse] = useState<ImageType[]>([]);
 
-  const fetchData = async (url: string) => {
-    try {
-      setIsloading(true);
-      const res = await axios.get<AxiosResponse>(url);
-      setResponse(res.data.results);
-    } catch (error) {
-      setError("There was an error loading data.");
-    } finally {
-      setIsloading(false);
-    }
-  };
+    axios.defaults.baseURL = 'https://api.unsplash.com';
 
-  useEffect(() => {
-    fetchData(params);
-  }, [params]);
+    const fetchData = async (url: string) => {
+        try {
+            setIsloading(true);
+            const res = await axios(url);
+            setResponse(res.data.results);
+        } catch (error: any) {
+            setError(error.message);
+        } finally {
+            setIsloading(false);
+        }
+    };
 
-  // Return an object instead of separate values
-  return {
-    response,
-    isLoading,
-    error,
-    fetchData: (url: string) => fetchData(url),
-  };
+    useEffect(() => {
+        fetchData(params);
+    }, [params]);
+
+    return { response, isLoading, error, fetchData };
 }

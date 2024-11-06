@@ -16,10 +16,10 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-white text-black border-b-2 sticky top-0 left-0 z-[100]">
-      <div className="h-[3.5rem] gap-3 md:h-[4.3rem] mx-auto px-4 lg:px-[4rem] flex justify-between items-center py-4">
+    <header className="bg-white text-black border-b-2 sticky top-0 left-0 z-[100] w-full">
+      <div className="h-[3.5rem] gap-3 md:h-[4.3rem] mx-auto px-4 lg:px-[4rem] flex justify-between items-center py-4 w-full">
         {/* Logo */}
-        <div className="text-2xl md:text-2xl font-bold h-[4.3rem] flex items-center">
+        <div className="text-lg md:text-2xl font-bold h-[4.3rem] flex items-center">
           <b className="text-black">
             <span className="bg-black text-white px-2 rounded-md">N</span>extGallery
           </b>
@@ -64,7 +64,7 @@ export default function Navbar() {
         } transition-transform duration-300 ease-in-out lg:hidden w-3/4 max-w-sm`}
       >
         <nav className="pl-4 flex flex-col justify-between h-full gap-1">
-          <div className="text-2xl font-bold h-[4.3rem] flex items-center">
+          <div className="text-lg md:text-2xl font-bold h-[4.3rem] flex items-center">
             <b className="text-black">
                 <span className="bg-black text-white px-2 rounded-md">N</span>extGallery
             </b>
