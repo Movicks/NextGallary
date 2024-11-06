@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import useAxios from './hooks/useAxios';
-import { createContext, ReactNode, useState, Dispatch, SetStateAction } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 
 // Load custom local fonts
 const geistSans = localFont({
@@ -17,38 +17,21 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-// Define ImageType
-interface ImageType {
-  id: string;
-  alt_description?: string;
-  description?: string;
-  urls: {
-    regular: string;
-    small: string;
-  };
-  user: {
-    id: string;
-    name: string;
-  };
-}
-
-// Define ImageContextType
+// Define ImageContext with proper types
 interface ImageContextType {
-  response: ImageType[];
+  response: any[];
   isLoading: boolean;
   error: string | null;
   fetchData: (url: string) => void;
   searchedResults: string;
-  setSearchedResults: Dispatch<SetStateAction<string>>;
+  setSearchedResults: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const ImageContext = createContext<ImageContextType | null>(null);
 
 export default function RootLayout({
   children,
-}: {
-  children: ReactNode;
-}) {
+}: { children: ReactNode }) {
   const { response, isLoading, error, fetchData } = useAxios(
     `search/photos?page=1&query=office&client_id=${process.env.NEXT_PUBLIC_API_ACCESS_KEY}`
   );
