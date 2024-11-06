@@ -3,35 +3,41 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import useAxios from './hooks/useAxios';
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useState, Dispatch, SetStateAction } from 'react';
 
-// Load custom local fonts
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+// Define ImageType once
+interface ImageType {
+  id: string;
+  alt_description?: string;
+  description?: string;
+  urls: {
+    regular: string;
+    small: string;
+  };
+  user: {
+    id: string;
+    name: string;
+  };
+}
 
-// Define ImageContext with proper types
+// Define ImageContextType
 interface ImageContextType {
-  response: any[];
+  response: ImageType[];
   isLoading: boolean;
   error: string | null;
   fetchData: (url: string) => void;
   searchedResults: string;
-  setSearchedResults: React.Dispatch<React.SetStateAction<string>>;
+  setSearchedResults: Dispatch<SetStateAction<string>>;
 }
 
 export const ImageContext = createContext<ImageContextType | null>(null);
 
 export default function RootLayout({
   children,
-}: { children: ReactNode }) {
+}: {
+  children: ReactNode;
+}) {
+  // Type the response explicitly as ImageType[]
   const { response, isLoading, error, fetchData } = useAxios(
     `search/photos?page=1&query=office&client_id=${process.env.NEXT_PUBLIC_API_ACCESS_KEY}`
   );
@@ -39,7 +45,7 @@ export default function RootLayout({
   const [searchedResults, setSearchedResults] = useState<string>("");
 
   const value = {
-    response,
+    response: response as ImageType[], 
     isLoading,
     error,
     fetchData,
@@ -49,7 +55,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className="antialiased">
         <ImageContext.Provider value={value}>
           <Navbar />
           <main>{children}</main>
