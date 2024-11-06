@@ -7,7 +7,7 @@ import Skeleton from '../Skeleton/Skeleton';
 interface ImageType {
   id: string;
   alt_description?: string;
-   description?: string;
+  description?: string;
   urls: {
     regular: string;
     small: string;
@@ -18,9 +18,8 @@ interface ImageType {
   };
 }
 
-
 interface ImageContextType {
-  response: ImageType[]; 
+  response: ImageType[];
   isLoading: boolean;
   error: string | null;
   fetchData: (url: string) => void;
