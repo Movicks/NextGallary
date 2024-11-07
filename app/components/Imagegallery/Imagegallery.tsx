@@ -29,7 +29,7 @@ export default function Imagegallery() {
             <ImageCards key={image.id} image={image} />
           ))
         ) : (
-          <p>No images found.</p>
+          <Skeleton item={10} />
         )}
       </section>
     </section>
