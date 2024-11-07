@@ -1,21 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { FaRegTimesCircle } from "react-icons/fa";
-
-// Define the ImageType interface here
-interface ImageType {
-  id: string;
-  alt_description?: string;
-  description?: string;
-  urls: {
-    regular: string;
-    small: string;
-  };
-  user: {
-    id: string;
-    name: string;
-  };
-}
+import { ImageType } from './../../types';
 
 interface ImageCardsProps {
   image: ImageType;

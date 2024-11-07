@@ -1,37 +1,26 @@
 "use client";
-import localFont from "next/font/local";
-import "./globals.css";
-import Navbar from "./components/Navbar/Navbar";
+
+import GeistSans from 'next/font/local';
+import GeistMono from 'next/font/local';
+import './globals.css';
+import Navbar from './components/Navbar/Navbar';
 import useAxios from './hooks/useAxios';
-import { createContext, ReactNode, useState } from 'react';
+import { ImageContext } from './hooks/useImageContext';
+import { ReactNode, useState } from 'react';
 
-// Load custom local fonts
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const geistSans = GeistSans({
+  src: './fonts/GeistVF.woff',
+  variable: '--font-geist-sans',
+  weight: '100 900',
 });
 
-// Define ImageContext with proper types
-interface ImageContextType {
-  response: any[];
-  isLoading: boolean;
-  error: string | null;
-  fetchData: (url: string) => void;
-  searchedResults: string;
-  setSearchedResults: React.Dispatch<React.SetStateAction<string>>;
-}
+const geistMono = GeistMono({
+  src: './fonts/GeistMonoVF.woff',
+  variable: '--font-geist-mono',
+  weight: '100 900',
+});
 
-export const ImageContext = createContext<ImageContextType | null>(null);
-
-export default function RootLayout({
-  children,
-}: { children: ReactNode }) {
+export default function RootLayout<T extends ReactNode>({ children }: { children: T }) {
   const { response, isLoading, error, fetchData } = useAxios(
     `search/photos?page=1&query=office&client_id=${process.env.NEXT_PUBLIC_API_ACCESS_KEY}`
   );

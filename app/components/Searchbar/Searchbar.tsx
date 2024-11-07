@@ -1,6 +1,6 @@
 "use client";
 import { useState, useContext } from "react";
-import { ImageContext } from '../../layout';
+import { ImageContext } from './../../hooks/useImageContext';
 
 export default function Searchbar() {
   const [searchValue, setSearchValue] = useState<string>("");

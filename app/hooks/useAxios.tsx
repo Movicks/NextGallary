@@ -2,15 +2,8 @@
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import {ImageType} from '../types'
 
-interface ImageType {
-    id: string;
-    alt_description?: string;
-    urls: {
-        regular: string;
-        small: string;
-    };
-}
 
 interface UseAxiosReturnType {
     response: ImageType[];

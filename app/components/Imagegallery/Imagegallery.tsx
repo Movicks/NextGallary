@@ -1,22 +1,8 @@
 "use client";
 import { useContext } from 'react';
-import { ImageContext } from '../../layout';
+import { ImageContext } from '../../hooks/useImageContext';
 import ImageCards from './ImageCards';
 import Skeleton from '../Skeleton/Skeleton';
-
-interface ImageType {
-  id: string;
-  alt_description?: string;
-  description?: string;
-  urls: {
-    regular: string;
-    small: string;
-  };
-  user: {
-    id: string;
-    name: string;
-  };
-}
 
 export default function Imagegallery() {
   // Use the context safely, assuming it will not be null.

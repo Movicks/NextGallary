@@ -1,19 +1,7 @@
 import { createContext, useState, ReactNode } from 'react';
+import {ImageType} from '../types'
 
-// Define the structure of each image item in the response
-interface ImageType {
-  id: string;
-  alt_description?: string;
-  description?: string;
-  urls: {
-    regular: string;
-    small: string;
-  };
-  user: {
-    id: string;
-    name: string;
-  };
-}
+
 
 // Define the structure of the context state
 interface ImageContextType {
